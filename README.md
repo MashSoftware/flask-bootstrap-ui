@@ -1,2 +1,1 @@
-# flask-ui-template
-Flask UI Template
+# Flask Bootstrap UI Template
