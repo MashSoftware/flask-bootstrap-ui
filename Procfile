@@ -1,0 +1,1 @@
+web: gunicorn flask_bootstrap_ui:app --log-file -
