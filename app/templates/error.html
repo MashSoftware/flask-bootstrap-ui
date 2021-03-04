@@ -2,7 +2,7 @@
 {% block content %}
 <div class="row">
     <div class="col-md-8">
-        <h1>{{ error.name }}</h1>
+        <h1>{{ error.name | capitalize }}</h1>
         <p class="lead"><strong>Error {{ error.code }}:</strong> {{ error.description }}</p>
     </div>
 </div>
