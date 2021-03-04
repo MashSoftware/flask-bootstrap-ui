@@ -3,7 +3,7 @@ from flask import render_template
 from werkzeug.exceptions import HTTPException
 
 
-@bp.route("/")
+@bp.route("/", methods=["GET"])
 def index():
     return render_template("main/index.html")
 
