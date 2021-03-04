@@ -33,5 +33,5 @@ flask run
 Run the test suite
 
 ```shell
-python tests.py
+pytest
 ```
