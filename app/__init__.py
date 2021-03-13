@@ -4,7 +4,9 @@ from flask_compress import Compress
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_talisman import Talisman
+from flask_wtf.csrf import CSRFProtect
 
+csrf = CSRFProtect()
 limiter = Limiter(key_func=get_remote_address, default_limits=["2 per second", "60 per minute"])
 compress = Compress()
 talisman = Talisman()
@@ -16,6 +18,7 @@ def create_app(config_class=Config):
     app.jinja_env.trim_blocks = True
     app.jinja_env.lstrip_blocks = True
 
+    csrf.init_app(app)
     limiter.init_app(app)
     compress.init_app(app)
     csp = {
