@@ -56,7 +56,35 @@
         </div>
     </nav>
     <main class="container py-3 mb-3">
-        {% block content %}{% endblock %}
+        {% block content %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                            {% if category == 'danger' %}
+                                <h4 class="alert-heading">There is a problem</h4>
+                            {% elif category == 'success' %}
+                                <h4 class="alert-heading">Success</h4>
+                            {% elif category == 'info' %}
+                                <h4 class="alert-heading">Important</h4>
+                            {% endif %}
+                            <p class="mb-0">{{ message | safe }}</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% if form and form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">There is a problem</h4>
+                    {% for field, errors in form.errors.items() %}
+                        {% for error in errors %}
+                            <p class="mb-0">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endblock %}
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
