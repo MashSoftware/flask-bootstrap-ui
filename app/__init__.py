@@ -25,6 +25,7 @@ def create_app(config_class=Config):
         "default-src": "'self'",
         "style-src": "cdn.jsdelivr.net",
         "script-src": "cdn.jsdelivr.net",
+        "img-src": ["data:", "'self'"],
     }
     talisman.init_app(app, content_security_policy=csp)
 
