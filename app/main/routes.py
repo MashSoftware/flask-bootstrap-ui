@@ -18,7 +18,7 @@ def index():
 
 
 @bp.route("/cookies", methods=["GET", "POST"])
-def cookies_page():
+def cookies():
     form = CookiesForm()
     # Default cookies policy to reject all categories of cookie
     cookies_policy = {"functional": "no", "analytics": "no"}
@@ -32,7 +32,7 @@ def cookies_page():
         flash("You’ve set your cookie preferences.", "success")
 
         # Create the response so we can set the cookie before returning
-        response = make_response(render_template("cookies.html", title="Cookies", form=form))
+        response = make_response(render_template("cookies.html", form=form))
 
         # Set cookies policy for one year
         response.set_cookie("cookies_policy", json.dumps(cookies_policy), max_age=31557600)
@@ -47,7 +47,7 @@ def cookies_page():
             # If conset not previously set, use default "no" policy
             form.functional.data = cookies_policy["functional"]
             form.analytics.data = cookies_policy["analytics"]
-    return render_template("cookies.html", title="Cookies", form=form)
+    return render_template("cookies.html", form=form)
 
 
 @bp.app_errorhandler(HTTPException)
