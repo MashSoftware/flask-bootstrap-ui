@@ -1,3 +1,5 @@
+import logging
+
 from config import Config
 from flask import Flask
 from flask_compress import Compress
@@ -33,5 +35,11 @@ def create_app(config_class=Config):
     from app.main import bp as main_bp
 
     app.register_blueprint(main_bp)
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(logging.INFO)
+    app.logger.addHandler(stream_handler)
+    app.logger.setLevel(logging.INFO)
+    app.logger.info("Startup")
 
     return app
