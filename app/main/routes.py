@@ -1,6 +1,7 @@
 from app.main import bp
 from app.main.forms import CookiesForm
 from flask import (
+    current_app,
     flash,
     json,
     make_response,
@@ -52,10 +53,12 @@ def cookies():
 
 @bp.app_errorhandler(HTTPException)
 def http_error(error):
+    current_app.logger.error("{}: {} - {}".format(error.code, error.name, request.url))
     return render_template("error.html", title=error.name, error=error), error.code
 
 
 @bp.app_errorhandler(CSRFError)
 def csrf_error(error):
-    flash("The form you were submitting has expired. Please try again.")
+    current_app.logger.error("{}: {} - {}".format(error.code, error.description, request.url))
+    flash("The form you were submitting has expired. Please try again.", "info")
     return redirect(request.full_path)
