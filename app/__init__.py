@@ -34,8 +34,8 @@ def create_app(config_class=Config):
     }
     talisman.init_app(app, content_security_policy=csp, content_security_policy_nonce_in=['style-src', 'script-src'])
 
-    js = Bundle('src/js/*.js', filters='jsmin', output='dist/js/main-%(version)s.js')
-    css = Bundle('src/css/*.css', filters='cssmin', output='dist/css/main-%(version)s.css')
+    js = Bundle('src/js/*.js', filters='jsmin', output='dist/js/custom-%(version)s.js')
+    css = Bundle('src/css/*.css', filters='cssmin', output='dist/css/custom-%(version)s.css')
     assets.register('js', js)
     assets.register('css', css)
     
