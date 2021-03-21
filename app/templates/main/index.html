@@ -11,12 +11,10 @@
             the same directory structure and files to get a new project started quicker.</p>
 
         <h2>Features</h2>
-
         <p>This template repository uses a number of packages to provide the following features with sensible defaults.
         </p>
 
         <h3>Asset compression</h3>
-
         <p>Additional custom CSS and JS files are merged and compressed using <a
                 href="https://flask-assets.readthedocs.io/en/latest">Flask Assets</a> and <a
                 href="https://webassets.readthedocs.io/en/latest">Webassets</a>. This takes all <code>*.css</code> files
@@ -29,6 +27,17 @@
             <a href="https://github.com/zacharyvoase/cssmin">CSSMin</a> and JS is minified using <a
                 href="https://github.com/tikitu/jsmin">JSMin</a>. This removes all whitespace characters, comments and
             line breaks to reduce the size of the source code, making its transmission over a network more efficient.
+        </p>
+
+        <h3>Cache busting</h3>
+        <p>Merged and compressed assets also have their MD5 hash appended to the file name using <a
+                href="https://flask-assets.readthedocs.io/en/latest">Flask Assets</a> and <a
+                href="https://webassets.readthedocs.io/en/latest">Webassets</a>. This enables browser cache busting of
+            assets when
+            they have been updated by modifying their URL. The MD5 hash is appended to the file name, for example
+            <code>custom-d41d8cd9.css</code> instead of a query string, to support certain older browsers and proxies
+            that ignore
+            the querystring in their caching behaviour.
         </p>
     </div>
 </div>
