@@ -30,22 +30,30 @@
         </p>
 
         <h3>Cache busting</h3>
-        <p>Merged and compressed assets also have their MD5 hash appended to the file name using <a
+        <p>Merged and compressed assets are browser cache busted on update by modifying their URL with their MD5 hash using <a
                 href="https://flask-assets.readthedocs.io/en/latest">Flask Assets</a> and <a
-                href="https://webassets.readthedocs.io/en/latest">Webassets</a>. This enables browser cache busting of
-            assets when
-            they have been updated by modifying their URL. The MD5 hash is appended to the file name, for example
+                href="https://webassets.readthedocs.io/en/latest">Webassets</a>. The MD5 hash is appended to the file
+            name, for example
             <code>custom-d41d8cd9.css</code> instead of a query string, to support certain older browsers and proxies
             that ignore
             the querystring in their caching behaviour.
         </p>
 
         <h3>Content Security Policy (CSP)</h3>
-        <p>A strict default CSP is set using <a href="https://github.com/GoogleCloudPlatform/flask-talisman">Flask Talisman</a>. This prevents loading any resources that are not in the same domain as the application, with the following exceptions:</p>
+        <p>A strict default CSP is set using <a href="https://github.com/GoogleCloudPlatform/flask-talisman">Flask
+                Talisman</a>. This prevents loading any resources that are not in the same domain as the application,
+            with the following exceptions:</p>
         <ul>
-            <li><code>style-src</code> and <code>script-src</code> can be loaded from the Bootstrap CDN over HTTPS only. These resources also use <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity">Subresource Integrity</a> (SRI) to specify a base64-encoded sha384 cryptographic hash for additional security.</li>
-            <li>To enable Bootstrap components that <a href="https://getbootstrap.com/docs/5.0/customize/overview/#csps-and-embedded-svgs">include embedded SVGs</a>, an additional policy of <code>img-src data: 'self'</code> has also been added.</li>
-            <li>A per-request nonce value is added to the <code>style-src</code> and <code>script-src</code> policies to allow local custom CSS and JS assets to be loaded.</li>
+            <li><code>style-src</code> and <code>script-src</code> can be loaded from the Bootstrap CDN over HTTPS only.
+                These resources also use <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity">Subresource
+                    Integrity</a> (SRI) to specify a base64-encoded sha384 cryptographic hash for additional security.
+            </li>
+            <li>To enable Bootstrap components that <a
+                    href="https://getbootstrap.com/docs/5.0/customize/overview/#csps-and-embedded-svgs">include embedded
+                    SVGs</a>, an additional policy of <code>img-src data: 'self'</code> has also been added.</li>
+            <li>A per-request nonce value is added to the <code>style-src</code> and <code>script-src</code> policies to
+                allow local custom CSS and JS assets to be loaded.</li>
         </ul>
     </div>
 </div>
