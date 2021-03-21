@@ -4,6 +4,32 @@
     <div class="col-md-8">
         {{ super() }}
         <h1>Hello, World!</h1>
+        <p class="lead">This is a template <a href="https://flask.palletsprojects.com">Flask</a> app using the <a
+                href="https://getbootstrap.com/">Bootstrap</a> UI framework. The app is structured based on best
+            practices and experience gained through previous projects. By using a template repository you can <a
+                href="https://github.com/MashSoftware/flask-bootstrap-ui/generate">generate a new repository</a> with
+            the same directory structure and files to get a new project started quicker.</p>
+
+        <h2>Features</h2>
+
+        <p>This template repository uses a number of packages to provide the following features with sensible defaults.
+        </p>
+
+        <h3>Asset compression</h3>
+
+        <p>Additional custom CSS and JS files are merged and compressed using <a
+                href="https://flask-assets.readthedocs.io/en/latest">Flask Assets</a> and <a
+                href="https://webassets.readthedocs.io/en/latest">Webassets</a>. This takes all <code>*.css</code> files
+            in <code>app/static/src/css</code> and all <code>*.js</code> files in <code>app/static/src/js</code> and
+            outputs a single compressed file to both <code>app/static/dist/css</code> and
+            <code>app/static/dist/js</code> respectively.
+        </p>
+
+        <p>CSS is <a href="https://en.wikipedia.org/wiki/Minification_(programming)">minified</a> using
+            <a href="https://github.com/zacharyvoase/cssmin">CSSMin</a> and JS is minified using <a
+                href="https://github.com/tikitu/jsmin">JSMin</a>. This removes all whitespace characters, comments and
+            line breaks to reduce the size of the source code, making its transmission over a network more efficient.
+        </p>
     </div>
 </div>
 {% endblock %}
