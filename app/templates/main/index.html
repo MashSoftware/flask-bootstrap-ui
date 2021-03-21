@@ -15,7 +15,7 @@
         </p>
 
         <h3 id="asset-compression">Asset compression</h3>
-        <p>Custom CSS and JS files are merged and compressed using <a
+        <p>Custom CSS and JavaScript files are merged and compressed using <a
                 href="https://flask-assets.readthedocs.io/en/latest">Flask Assets</a> and <a
                 href="https://webassets.readthedocs.io/en/latest">Webassets</a>. This takes all <code>*.css</code> files
             in <code>app/static/src/css</code> and all <code>*.js</code> files in <code>app/static/src/js</code> and
@@ -24,7 +24,7 @@
         </p>
 
         <p>CSS is <a href="https://en.wikipedia.org/wiki/Minification_(programming)">minified</a> using
-            <a href="https://github.com/zacharyvoase/cssmin">CSSMin</a> and JS is minified using <a
+            <a href="https://github.com/zacharyvoase/cssmin">CSSMin</a> and JavaScript is minified using <a
                 href="https://github.com/tikitu/jsmin">JSMin</a>. This removes all whitespace characters, comments and
             line breaks to reduce the size of the source code, making its transmission over a network more efficient.
         </p>
@@ -83,7 +83,7 @@
                     href="https://getbootstrap.com/docs/5.0/customize/overview/#csps-and-embedded-svgs">include embedded
                     SVGs</a>, an additional policy of <code>img-src data: 'self'</code> has also been added.</li>
             <li>A per-request nonce value is added to the <code>style-src</code> and <code>script-src</code> policies to
-                allow local custom CSS and JS assets to be loaded.</li>
+                allow local custom CSS and JavaScript assets to be loaded.</li>
         </ul>
 
         <h3 id="response-compression">Response compression</h3>
