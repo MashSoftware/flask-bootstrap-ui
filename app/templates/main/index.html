@@ -71,7 +71,10 @@
         <h3 id="content-security-policy">Content Security Policy</h3>
         <p>A strict default <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy</a>
             (CSP) is set using <a href="https://github.com/GoogleCloudPlatform/flask-talisman">Flask
-                Talisman</a>. This prevents loading any resources that are not in the same domain as the application,
+                Talisman</a> to mitigate <a
+                href="https://developer.mozilla.org/en-US/docs/Web/Security/Types_of_attacks#cross-site_scripting_xss">Cross
+                Site Scripting</a> (XSS) and packet sniffing attacks. This prevents loading any resources that are not
+            in the same domain as the application,
             with the following exceptions:</p>
         <ul>
             <li><code>style-src</code> and <code>script-src</code> can be loaded from the Bootstrap CDN over HTTPS only.
