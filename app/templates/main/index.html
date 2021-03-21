@@ -15,7 +15,7 @@
         </p>
 
         <h3>Asset compression</h3>
-        <p>Additional custom CSS and JS files are merged and compressed using <a
+        <p>Custom CSS and JS files are merged and compressed using <a
                 href="https://flask-assets.readthedocs.io/en/latest">Flask Assets</a> and <a
                 href="https://webassets.readthedocs.io/en/latest">Webassets</a>. This takes all <code>*.css</code> files
             in <code>app/static/src/css</code> and all <code>*.js</code> files in <code>app/static/src/js</code> and
@@ -38,6 +38,19 @@
             that ignore
             the querystring in their caching behaviour.
         </p>
+
+        <h3>Security headers</h3>
+        <p>Uses <a href="https://github.com/GoogleCloudPlatform/flask-talisman">Flask Talisman</a> to set HTTP headers that can help protect against a few common web application security issues.</p>
+        <ul>
+            <li>Forces all connects to <code>https</code>, unless running with debug enabled.</li>
+            <li>Enables <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security">HTTP Strict Transport Security</a>.</li>
+            <li>Sets Flask's session cookie to <code>secure</code>, so it will never be set if your application is somehow accessed via a non-secure connection.</li>
+            <li>Sets Flask's session cookie to <code>httponly</code>, preventing JavaScript from being able to access its content.</li>
+            <li>Sets <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">X-Frame-Options</a> to <code>SAMEORIGIN</code> to avoid <a href="https://en.wikipedia.org/wiki/Clickjacking">clickjacking</a>.</li>
+            <li>Sets <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">X-XSS-Protection</a> to enable a cross site scripting filter for IE and Safari (note Chrome has removed this and Firefox never supported it).</li>
+            <li>Sets <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">X-Content-Type-Options</a> to prevent content type sniffing.</li>
+            <li>Sets a strict <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy">Referrer-Policy</a> of <code>strict-origin-when-cross-origin</code> that governs which referrer information should be included with requests made.</li>
+        </ul>
 
         <h3>Content Security Policy (CSP)</h3>
         <p>A strict default CSP is set using <a href="https://github.com/GoogleCloudPlatform/flask-talisman">Flask
