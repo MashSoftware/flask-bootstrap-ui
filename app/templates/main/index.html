@@ -92,6 +92,27 @@
             This inspects the <code>Accept-Encoding</code> request header, compresses using either gzip, deflate or
             brotli algorithms and sets the <code>Content-Encoding</code> response header. HTML, CSS, XML, JSON and
             JavaScript MIME types will all be compressed.</p>
+
+        <h3>Rate limiting</h3>
+        <p>Uses <a href="https://flask-limiter.readthedocs.io/en/stable">Flask Limiter</a> to set request rate limits on
+            routes.
+            The default rate limit is 2 requests per second <em>and</em> 60 requests per minite (whichever is hit first)
+            based
+            on the clients remote IP address. Every time a request exceeds the rate limit, the view function will not
+            get called and instead a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429">HTTP 429</a>
+            status
+            will be returned. If you're implementing user authentication using <a
+                href="https://flask-login.readthedocs.io/en/latest">Flask
+                Login</a> you should also use a <code>key_func</code> to identify users on routes that require
+            authentication, for example:</p>
+        <pre><code>@login_required<br>@limiter.limit("2 per second", key_func=lambda: current_user.id)</code></pre>
+        <p>This fixes the issue of rate limiting multiple users behind a single IP NAT or proxy, since the request is
+            identified using a different unique value for each user.</p>
+        <p>Rate limit storage can be backed by <a href="https://redis.io">Redis</a> using the
+            <code>RATELIMIT_STORAGE_URL</code> config value in <code>config.py</code>, or fall back to in-memory if not
+            present. Rate limit information will also be added to various <a
+                href="https://flask-limiter.readthedocs.io/en/stable/#rate-limiting-headers">response headers</a>.
+        </p>
     </div>
 </div>
 {% endblock %}
