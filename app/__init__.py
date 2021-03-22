@@ -28,11 +28,11 @@ def create_app(config_class=Config):
     compress.init_app(app)
     csp = {
         "default-src": "'self'",
-        "style-src": "https://cdn.jsdelivr.net",
-        "script-src": "https://cdn.jsdelivr.net",
+        "style-src": ["https://cdn.jsdelivr.net", "'self'"],
+        "script-src": ["https://cdn.jsdelivr.net","'self'"],
         "img-src": ["data:", "'self'"],
     }
-    talisman.init_app(app, content_security_policy=csp, content_security_policy_nonce_in=['style-src', 'script-src'])
+    talisman.init_app(app, content_security_policy=csp)
 
     js = Bundle('src/js/*.js', filters='jsmin', output='dist/js/custom-%(version)s.js')
     css = Bundle('src/css/*.css', filters='cssmin', output='dist/css/custom-%(version)s.css')
