@@ -29,18 +29,18 @@ def create_app(config_class=Config):
     csp = {
         "default-src": "'self'",
         "style-src": ["https://cdn.jsdelivr.net", "'self'"],
-        "script-src": ["https://cdn.jsdelivr.net","'self'"],
+        "script-src": ["https://cdn.jsdelivr.net", "'self'"],
         "img-src": ["data:", "'self'"],
     }
     talisman.init_app(app, content_security_policy=csp)
 
-    js = Bundle('src/js/*.js', filters='jsmin', output='dist/js/custom-%(version)s.js')
-    css = Bundle('src/css/*.css', filters='cssmin', output='dist/css/custom-%(version)s.css')
-    if 'js' not in assets:
-        assets.register('js', js)
-    elif 'css' not in assets:
-        assets.register('css', css)
-    
+    js = Bundle("src/js/*.js", filters="jsmin", output="dist/js/custom-%(version)s.js")
+    css = Bundle("src/css/*.css", filters="cssmin", output="dist/css/custom-%(version)s.css")
+    if "js" not in assets:
+        assets.register("js", js)
+    elif "css" not in assets:
+        assets.register("css", css)
+
     # Register blueprints
     from app.main import bp as main_bp
 

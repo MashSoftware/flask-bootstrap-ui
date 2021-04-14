@@ -9,6 +9,7 @@ def test_not_found():
         assert response.status_code == 404
         assert response.mimetype == "text/html"
 
+
 def test_method_not_allowed():
     app = create_app()
 
