@@ -36,8 +36,10 @@ def create_app(config_class=Config):
 
     js = Bundle('src/js/*.js', filters='jsmin', output='dist/js/custom-%(version)s.js')
     css = Bundle('src/css/*.css', filters='cssmin', output='dist/css/custom-%(version)s.css')
-    assets.register('js', js)
-    assets.register('css', css)
+    if 'js' not in assets:
+        assets.register('js', js)
+    elif 'css' not in assets:
+        assets.register('css', css)
     
     # Register blueprints
     from app.main import bp as main_bp
