@@ -52,7 +52,7 @@ def cookies():
 
 
 @bp.app_errorhandler(HTTPException)
-def http_error(error):
+def http_exception(error):
     current_app.logger.error("{}: {} - {}".format(error.code, error.name, request.url))
     return render_template("error.html", title=error.name, error=error), error.code
 
