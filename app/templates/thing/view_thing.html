@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        {{ super() }}
+        <h1 class="text-truncate">{{ title }}</h1>
+        <hr>
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">{{ thing.id }}</dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">{{ thing.name }}</dd>
+
+            <dt class="col-sm-3">Created</dt>
+            <dd class="col-sm-9">{{ thing.created_at.strftime("%d/%m/%Y %H:%M:%S") }}</dd>
+
+            <dt class="col-sm-3">Updated</dt>
+            <dd class="col-sm-9">{{ thing.updated_at.strftime("%d/%m/%Y %H:%M:%S") if thing.updated_at }}</dd>
+        </dl>
+        <div class="d-grid gap-2 d-sm-block">
+            <a class="btn btn-primary" href="{{ url_for('thing.edit', id=thing.id) }}">Edit</a>
+            <a class="btn btn-danger" href="{{ url_for('thing.delete', id=thing.id) }}">Delete</a>
+            <a class="btn btn-secondary" href="{{ url_for('thing.list') }}">Back</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

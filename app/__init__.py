@@ -38,13 +38,17 @@ def create_app(config_class=Config):
     css = Bundle("src/css/*.css", filters="cssmin", output="dist/css/custom-%(version)s.css")
     if "js" not in assets:
         assets.register("js", js)
-    elif "css" not in assets:
+    if "css" not in assets:
         assets.register("css", css)
 
     # Register blueprints
     from app.main import bp as main_bp
 
     app.register_blueprint(main_bp)
+
+    from app.thing import bp as thing_bp
+
+    app.register_blueprint(thing_bp, url_prefix="/thing")
 
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.INFO)
