@@ -6,6 +6,10 @@
 #
 brotli==1.0.9
     # via flask-compress
+certifi==2020.12.5
+    # via requests
+chardet==4.0.0
+    # via requests
 click==7.1.2
     # via flask
 cssmin==0.2.0
@@ -33,8 +37,10 @@ flask==1.1.2
     #   flask-wtf
 gunicorn==20.1.0
     # via -r requirements.in
-idna==3.1
-    # via email-validator
+idna==2.10
+    # via
+    #   email-validator
+    #   requests
 itsdangerous==1.1.0
     # via
     #   flask
@@ -49,15 +55,19 @@ markupsafe==1.1.1
     # via
     #   jinja2
     #   wtforms
-python-dotenv==0.17.0
+python-dotenv==0.17.1
     # via -r requirements.in
 redis==3.5.3
+    # via -r requirements.in
+requests==2.25.1
     # via -r requirements.in
 six==1.15.0
     # via
     #   flask-limiter
     #   flask-talisman
     #   limits
+urllib3==1.26.4
+    # via requests
 webassets==2.0
     # via flask-assets
 werkzeug==1.0.1
