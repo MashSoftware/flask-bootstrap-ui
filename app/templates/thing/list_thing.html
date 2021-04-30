@@ -3,30 +3,32 @@
 <div class="row">
     <div class="col">
         {{ super() }}
-        <h1>{{title}}</h1>
+        <h1>{{title}} <span class="badge bg-secondary">{{ things|length }}</span></h1>
         <hr>
         <a class="btn btn-primary" href="{{ url_for('thing.create') }}">New thing</a>
         {% if things %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Created</th>
-                        <th scope="col">Updated</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for thing in things %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <th scope="row"><a href="{{ url_for('thing.view', id=thing.id) }}">{{ thing.name }}</a></th>
-                            <td>{{ thing.created_at.strftime("%d/%m/%Y %H:%M:%S") }}</td>
-                            <td>{{ thing.updated_at.strftime("%d/%m/%Y %H:%M:%S") if thing.updated_at }}</td>
-                            <td><a href="{{ url_for('thing.edit', id=thing.id) }}">Edit</a> | <a href="{{ url_for('thing.delete', id=thing.id) }}">Delete</a></td>
+                            <th scope="col">Name</th>
+                            <th scope="col">Created</th>
+                            <th scope="col">Updated</th>
+                            <th scope="col">Actions</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for thing in things %}
+                            <tr>
+                                <th scope="row"><a href="{{ url_for('thing.view', id=thing.id) }}">{{ thing.name }}</a></th>
+                                <td>{{ thing.created_at.strftime("%d/%m/%Y %H:%M:%S") }}</td>
+                                <td>{{ thing.updated_at.strftime("%d/%m/%Y %H:%M:%S") if thing.updated_at else "Never" }}</td>
+                                <td><a href="{{ url_for('thing.edit', id=thing.id) }}">Edit</a> | <a href="{{ url_for('thing.delete', id=thing.id) }}">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endif %}
     </div>
 </div>
