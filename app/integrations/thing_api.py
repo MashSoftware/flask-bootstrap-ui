@@ -20,9 +20,12 @@ class ThingAPI:
 
     def list(self, **kwargs):
         """Get a list of Things."""
-        args = {"name": kwargs.get("name", "")}
-        qs = urlencode(args)
-        url = "{0}/{1}/things?{2}".format(self.url, self.version, qs)
+        if kwargs:
+            args = {"name": kwargs.get("name", "")}
+            qs = urlencode(args)
+            url = "{0}/{1}/things?{2}".format(self.url, self.version, qs)
+        else:
+            url = "{0}/{1}/things".format(self.url, self.version)
         headers = {"Accept": "application/json"}
 
         try:
