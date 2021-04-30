@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col">
         {{ super() }}
-        <h1>{{title}} <span class="badge bg-secondary">{{ things|length }}</span></h1>
+        <h1>{{title}} <span class="badge bg-secondary">{{ things|length if things else 0 }}</span></h1>
         <hr>
         <a class="btn btn-primary" href="{{ url_for('thing.create') }}">New thing</a>
         {% if things %}
