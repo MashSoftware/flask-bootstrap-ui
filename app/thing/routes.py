@@ -81,7 +81,7 @@ def delete(id):
     thing = thing_api.view(id)
 
     if request.method == "GET":
-        return render_template("thing/delete_thing.html", title="Delete thing", thing=thing)
+        return render_template("thing/delete_thing.html", title="Delete {}".format(thing["name"]), thing=thing)
     elif request.method == "POST":
         thing_api.delete(id)
         flash("{} has been deleted.".format(thing["name"]), "success")
