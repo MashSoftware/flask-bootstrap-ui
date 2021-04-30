@@ -2,6 +2,13 @@
 {% block content %}
 <div class="row">
     <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('thing.list') }}">Things</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('thing.view', id=thing.id) }}">{{ thing.name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Delete</li>
+            </ol>
+        </nav>
         {{ super() }}
         <h1>{{title}}</h1>
         <hr>
@@ -18,12 +25,11 @@
             <dd class="col-sm-9">{{ thing.created_at.strftime("%d/%m/%Y %H:%M:%S") }}</dd>
 
             <dt class="col-sm-3">Updated</dt>
-            <dd class="col-sm-9">{{ thing.updated_at.strftime("%d/%m/%Y %H:%M:%S") if thing.updated_at }}</dd>
+            <dd class="col-sm-9">{{ thing.updated_at.strftime("%d/%m/%Y %H:%M:%S") if thing.updated_at else "Never" }}</dd>
         </dl>
         <form action="" method="post" novalidate>
             <div class="d-grid gap-2 d-sm-block">
                 <button class="btn btn-danger" type="submit">Delete</button>
-                <a class="btn btn-secondary" href="{{ url_for('thing.list') }}">Back</a>
             </div>
         </form>
     </div>
