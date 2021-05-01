@@ -13,7 +13,3 @@ class ThingForm(FlaskForm):
         description="Must be 32 characters or fewer.",
     )
     save = SubmitField("Save")
-
-
-class SearchThingForm(FlaskForm):
-    query = StringField("Search")

@@ -1,7 +1,7 @@
 from app import csrf
 from app.integrations.thing_api import ThingAPI
 from app.thing import bp
-from app.thing.forms import ThingForm, SearchThingForm
+from app.thing.forms import ThingForm
 from flask import flash, redirect, render_template, request, url_for
 
 
@@ -9,13 +9,14 @@ from flask import flash, redirect, render_template, request, url_for
 def list():
     """Get a list of Things."""
     thing_api = ThingAPI()
-    form = SearchThingForm()
-    things = thing_api.list()
+    name_query = request.args.get("name", type=str)
 
-    if form.validate_on_submit():
-        things = thing_api.list(name=form.query.data)
+    if name_query:
+        things = thing_api.list(name=name_query)
+    else:
+        things = thing_api.list()
 
-    return render_template("thing/list_thing.html", title="Things", form=form, things=things)
+    return render_template("thing/list_thing.html", title="Things", things=things)
 
 
 @bp.route("/new", methods=["GET", "POST"])
@@ -81,7 +82,11 @@ def delete(id):
     thing = thing_api.view(id)
 
     if request.method == "GET":
-        return render_template("thing/delete_thing.html", title="Delete {}".format(thing["name"]), thing=thing)
+        return render_template(
+            "thing/delete_thing.html",
+            title="Delete {}".format(thing["name"]),
+            thing=thing,
+        )
     elif request.method == "POST":
         thing_api.delete(id)
         flash("{} has been deleted.".format(thing["name"]), "success")

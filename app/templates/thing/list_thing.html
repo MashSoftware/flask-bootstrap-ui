@@ -5,7 +5,21 @@
         {{ super() }}
         <h1>{{title}} <span class="badge bg-secondary">{{ things|length if things else 0 }}</span></h1>
         <hr>
-        <a class="btn btn-primary" href="{{ url_for('thing.create') }}">New thing</a>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="d-grid gap-2 d-sm-block">
+                    <a class="btn btn-primary" href="{{ url_for('thing.create') }}">New thing</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form action="" method="get" novalidate>
+                    <div class="input-group mb-3">
+                        <input type="search" name="name" value="{{ request.args.name }}" class="form-control" aria-label="Search" aria-describedby="button-addon">
+                        <button class="btn btn-primary" type="submit" id="button-addon">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         {% if things %}
             <div class="table-responsive">
                 <table class="table">
