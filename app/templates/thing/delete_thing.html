@@ -12,8 +12,7 @@
         {{ super() }}
         <h1>{{title}}</h1>
         <hr>
-        <h2>Are you sure?</h2>
-        <p class="lead">{{ thing.name }} will be permanently deleted.</p>
+        <p class="lead">Are you sure you want to delete {{ thing.name }}?</p>
         <dl class="row">
             <dt class="col-sm-3">ID</dt>
             <dd class="col-sm-9">{{ thing.id }}</dd>
@@ -24,12 +23,12 @@
             <dt class="col-sm-3">Created</dt>
             <dd class="col-sm-9">{{ thing.created_at.strftime("%d/%m/%Y %H:%M:%S") }}</dd>
 
-            <dt class="col-sm-3">Updated</dt>
+            <dt class="col-sm-3">Last updated</dt>
             <dd class="col-sm-9">{{ thing.updated_at.strftime("%d/%m/%Y %H:%M:%S") if thing.updated_at else "Never" }}</dd>
         </dl>
         <form action="" method="post" novalidate>
             <div class="d-grid gap-2 d-sm-block">
-                <button class="btn btn-danger" type="submit">Delete</button>
+                <button class="btn btn-danger btn-lg" type="submit">Yes, delete {{ thing.name }}</button>
             </div>
         </form>
     </div>
