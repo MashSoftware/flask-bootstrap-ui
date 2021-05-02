@@ -21,7 +21,7 @@
             <dt class="col-sm-3">Created</dt>
             <dd class="col-sm-9">{{ thing.created_at.strftime("%d/%m/%Y %H:%M:%S") }}</dd>
 
-            <dt class="col-sm-3">Updated</dt>
+            <dt class="col-sm-3">Last updated</dt>
             <dd class="col-sm-9">{{ thing.updated_at.strftime("%d/%m/%Y %H:%M:%S") if thing.updated_at else "Never" }}</dd>
         </dl>
         <div class="d-grid gap-2 d-sm-block">
