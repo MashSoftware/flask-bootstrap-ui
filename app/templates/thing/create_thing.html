@@ -11,27 +11,7 @@
         {{ super() }}
         <h1>{{title}}</h1>
         <hr>
-        <form action="" method="post" novalidate>
-            {{ form.csrf_token }}
-            <div class="mb-3">
-                {{ form.name.label(class="form-label") }}
-                {% if form.errors %}
-                    {% if form.name.errors %}
-                        {{ form.name(class="form-control is-invalid", type="text", spellcheck="true", aria_describedby="nameHelp") }}
-                        {% for error in form.name.errors %}<div class="invalid-feedback">{{error}}</div>{% endfor %}
-                    {% else %}
-                        {{ form.name(class="form-control is-valid", type="text", spellcheck="true", aria_describedby="nameHelp") }}
-                        <div class="valid-feedback">Looks good!</div>
-                    {% endif %}
-                {% else %}
-                    {{ form.name(class="form-control", type="text", spellcheck="true", aria_describedby="nameHelp") }}
-                {% endif %}
-                <div id="nameHelp" class="form-text">{{ form.name.description }}</div>
-            </div>
-            <div class="d-grid gap-2 d-sm-block">
-                {{ form.save(class="btn btn-primary btn-lg") }}
-            </div>
-        </form>
+        {% include '_thing_form.html' %}
     </div>
 </div>
 {% endblock %}
