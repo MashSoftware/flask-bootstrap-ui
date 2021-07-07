@@ -51,6 +51,11 @@ def cookies():
     return render_template("cookies.html", form=form)
 
 
+@bp.route("/privacy", methods=["GET"])
+def privacy():
+    return render_template("privacy.html")
+
+
 @bp.app_errorhandler(HTTPException)
 def http_exception(error):
     current_app.logger.error("{}: {} - {}".format(error.code, error.name, request.url))
