@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import InputRequired, Length
+from wtforms import RadioField, SelectField, StringField
+from wtforms.validators import InputRequired, Length, Optional
 
 
 class ThingForm(FlaskForm):
@@ -12,4 +12,24 @@ class ThingForm(FlaskForm):
         ],
         description="Must be 32 characters or fewer.",
     )
-    save = SubmitField("Save")
+    colour = RadioField(
+        "Colour",
+        validators=[InputRequired(message="Select a colour")],
+        choices=[("red", "Red"), ("green", "Green"), ("blue", "Blue")],
+    )
+
+
+class ThingFilterForm(FlaskForm):
+    sort = SelectField(
+        "Sort by",
+        validators=[InputRequired()],
+        choices=[("name", "Name"), ("colour", "Colour")],
+        default="name",
+    )
+    name = StringField("Name", validators=[Optional()])
+    colour = RadioField(
+        "Colour",
+        validators=[Optional()],
+        choices=[("", "All"), ("red", "Red"), ("green", "Green"), ("blue", "Blue")],
+        default="",
+    )
