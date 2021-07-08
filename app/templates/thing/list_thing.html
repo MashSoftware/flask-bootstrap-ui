@@ -9,34 +9,53 @@
 </div>
 <div class="row">
     <div class="col-md-6 mb-3">
-        <div class="d-grid gap-2 d-sm-block">
-            <a class="btn btn-primary btn-lg" href="{{ url_for('thing.create') }}">New thing</a>
+        <div class="d-grid gap-2 d-sm-block mb-3">
+            <a class="btn btn-primary" href="{{ url_for('thing.create') }}"><i class="bi bi-plus-lg"></i> New thing</a>
+            <a class="btn btn-secondary" href="#"><i class="bi bi-download"></i> Download</a>
         </div>
-    </div>
-    <div class="col-md-6">
-        <form action="" method="get" novalidate>
-            <div class="input-group mb-3">
-                <input type="search" name="name" value="{{ request.args.name }}" class="form-control" aria-label="Search" aria-describedby="button-addon">
-                <button class="btn btn-primary" type="submit" id="button-addon" aria-label="Search">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg>
-                </button>
-            </div>
-        </form>
     </div>
 </div>
 <div class="row">
-    <div class="col">
-        <p class="lead">{{ things|length if things else 0 }} things{% if request.args.name %} containing "{{ request.args.name }}"{% endif %}</p>
+    <div class="col-md-3">
+        <div class="card mb-3">
+            <div class="card-header">Sort and filter</div>
+            <form action="" method="get" novalidate>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        {{ form.sort.label(class="form-label") }}
+                        {{ form.sort(class="form-select mb-2") }}
+                    </li>
+                    <li class="list-group-item">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-control mb-2", type="text") }}
+                    </li>
+                    <li class="list-group-item">
+                        {{ form.colour.label(class="form-label") }}
+                        {% for subfield in form.colour %}
+                            <div class="form-check">
+                                {{ subfield(class="form-check-input", type="radio") }}
+                                {{ subfield.label(class="form-check-label") }}
+                            </div>
+                        {% endfor %}
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit"><i class="bi bi-funnel"></i> Apply</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <p class="lead">Showing {{ things|length if things else 0 }} {% if things|length == 1 %}thing{% else %}things{% endif %}</p>
         {% if things %}
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Created</th>
-                            <th scope="col">Last updated</th>
+                            <th scope="col">Colour</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -44,9 +63,11 @@
                         {% for thing in things %}
                             <tr>
                                 <th scope="row"><a href="{{ url_for('thing.view', id=thing.id) }}">{{ thing.name }}</a></th>
-                                <td>{{ thing.created_at.strftime("%d/%m/%Y %H:%M:%S") }}</td>
-                                <td>{{ thing.updated_at.strftime("%d/%m/%Y %H:%M:%S") if thing.updated_at else "Never" }}</td>
-                                <td><a href="{{ url_for('thing.edit', id=thing.id) }}">Edit</a> | <a href="{{ url_for('thing.delete', id=thing.id) }}">Delete</a></td>
+                                <td>{{ thing.colour | title }}</td>
+                                <td>
+                                    <a href="{{ url_for('thing.edit', id=thing.id) }}"><i class="bi bi-pencil-square"></i> Edit</a><br>
+                                    <a href="{{ url_for('thing.delete', id=thing.id) }}" class="link-danger"><i class="bi bi-trash"></i> Delete</a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
