@@ -48,12 +48,12 @@ def cookies():
             # If conset not previously set, use default "no" policy
             form.functional.data = cookies_policy["functional"]
             form.analytics.data = cookies_policy["analytics"]
-    return render_template("cookies.html", form=form)
+    return render_template("cookies.html", title="Cookies", form=form)
 
 
 @bp.route("/privacy", methods=["GET"])
 def privacy():
-    return render_template("privacy.html")
+    return render_template("privacy.html", title="Privacy notice")
 
 
 @bp.app_errorhandler(HTTPException)
