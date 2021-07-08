@@ -48,8 +48,8 @@
         </div>
     </div>
     <div class="col-md-9">
-        <p class="lead">Showing {{ things|length if things else 0 }} {% if things|length == 1 %}thing{% else %}things{% endif %}</p>
         {% if things %}
+        <p class="lead">Showing {{ things|length }} {% if things|length == 1 %}thing{% else %}things{% endif %}</p>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
