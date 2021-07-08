@@ -18,14 +18,37 @@ class ThingAPI:
         self.version = current_app.config["THING_API_VERSION"]
         self.timeout = current_app.config["TIMEOUT"]
 
-    def list(self, **kwargs):
-        """Get a list of Things."""
-        if kwargs:
-            args = {"name": kwargs.get("name", "")}
-            qs = urlencode(args)
-            url = "{0}/{1}/things?{2}".format(self.url, self.version, qs)
+
+class Thing(ThingAPI):
+    def create(self, name, colour):
+        """Create a new Thing."""
+        url = f"{self.url}/{self.version}/things"
+        headers = {"Accept": "application/json", "Content-Type": "application/json"}
+        new_thing = {"name": name, "colour": colour}
+
+        try:
+            response = requests.post(url, data=json.dumps(new_thing), headers=headers, timeout=self.timeout)
+        except requests.exceptions.Timeout:
+            raise RequestTimeout
         else:
-            url = "{0}/{1}/things".format(self.url, self.version)
+            if response.status_code == 201:
+                thing = json.loads(response.text)
+                thing["created_at"] = datetime.strptime(thing["created_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
+                if thing["updated_at"]:
+                    thing["updated_at"] = datetime.strptime(thing["updated_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
+                return thing
+            elif response.status_code == 429:
+                raise TooManyRequests
+            else:
+                raise InternalServerError
+
+    def list(self, filters):
+        """Get a list of Things."""
+        if filters:
+            qs = urlencode(filters)
+            url = f"{self.url}/{self.version}/things?{qs}"
+        else:
+            url = f"{self.url}/{self.version}/things"
         headers = {"Accept": "application/json"}
 
         try:
@@ -47,31 +70,9 @@ class ThingAPI:
             else:
                 raise InternalServerError
 
-    def create(self, name):
-        """Create a new Thing."""
-        url = "{0}/{1}/things".format(self.url, self.version)
-        headers = {"Accept": "application/json", "Content-Type": "application/json"}
-        new_thing = {"name": name}
-
-        try:
-            response = requests.post(url, data=json.dumps(new_thing), headers=headers, timeout=self.timeout)
-        except requests.exceptions.Timeout:
-            raise RequestTimeout
-        else:
-            if response.status_code == 201:
-                thing = json.loads(response.text)
-                thing["created_at"] = datetime.strptime(thing["created_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
-                if thing["updated_at"]:
-                    thing["updated_at"] = datetime.strptime(thing["updated_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
-                return thing
-            elif response.status_code == 429:
-                raise TooManyRequests
-            else:
-                raise InternalServerError
-
-    def view(self, thing_id):
-        """View a Thing with a specific ID."""
-        url = "{0}/{1}/things/{2}".format(self.url, self.version, thing_id)
+    def get(self, thing_id):
+        """Get a Thing with a specific ID."""
+        url = f"{self.url}/{self.version}/things/{thing_id}"
         headers = {"Accept": "application/json"}
 
         try:
@@ -92,11 +93,11 @@ class ThingAPI:
             else:
                 raise InternalServerError
 
-    def edit(self, thing_id, name):
+    def edit(self, thing_id, name, colour):
         """Edit a Thing with a specific ID."""
-        url = "{0}/{1}/things/{2}".format(self.url, self.version, thing_id)
+        url = f"{self.url}/{self.version}/things/{thing_id}"
         headers = {"Accept": "application/json", "Content-Type": "application/json"}
-        changed_thing = {"name": name}
+        changed_thing = {"name": name, "colour": colour}
 
         try:
             response = requests.put(
@@ -123,7 +124,7 @@ class ThingAPI:
 
     def delete(self, thing_id):
         """Delete a Thing with a specific ID."""
-        url = "{0}/{1}/things/{2}".format(self.url, self.version, thing_id)
+        url = f"{self.url}/{self.version}/things/{thing_id}"
         headers = {"Accept": "application/json"}
 
         try:
