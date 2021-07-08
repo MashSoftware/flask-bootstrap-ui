@@ -57,12 +57,7 @@ class Thing(ThingAPI):
             raise RequestTimeout
         else:
             if response.status_code == 200:
-                things = json.loads(response.text)
-                for thing in things:
-                    thing["created_at"] = datetime.strptime(thing["created_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
-                    if thing["updated_at"]:
-                        thing["updated_at"] = datetime.strptime(thing["updated_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
-                return things
+                return json.loads(response.text)
             elif response.status_code == 204:
                 return None
             elif response.status_code == 429:
