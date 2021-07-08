@@ -30,6 +30,7 @@ def create_app(config_class=Config):
         "default-src": "'self'",
         "style-src": ["https://cdn.jsdelivr.net", "'self'"],
         "script-src": ["https://cdn.jsdelivr.net", "'self'"],
+        "font-src": "https://cdn.jsdelivr.net",
         "img-src": ["data:", "'self'"],
     }
     talisman.init_app(app, content_security_policy=csp)
@@ -48,7 +49,7 @@ def create_app(config_class=Config):
 
     from app.thing import bp as thing_bp
 
-    app.register_blueprint(thing_bp, url_prefix="/thing")
+    app.register_blueprint(thing_bp, url_prefix="/things")
 
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.INFO)
