@@ -8,15 +8,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6 mb-3">
-        <div class="d-grid gap-2 d-sm-block mb-3">
-            <a class="btn btn-primary" href="{{ url_for('thing.create') }}"><i class="bi bi-plus-lg"></i> New thing</a>
-            <a class="btn btn-secondary" href="#"><i class="bi bi-download"></i> Download</a>
-        </div>
-    </div>
-</div>
-<div class="row">
     <div class="col-md-3">
+        <div class="d-grid gap-2 mb-3">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('thing.create') }}"><i class="bi bi-plus-lg"></i> New thing</a>
+        </div>
         <div class="card mb-3">
             <div class="card-header">Sort and filter</div>
             <form action="" method="get" novalidate>
@@ -49,30 +44,32 @@
     </div>
     <div class="col-md-9">
         {% if things %}
-        <p class="lead">Showing {{ things|length }} {% if things|length == 1 %}thing{% else %}things{% endif %}</p>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
+        <p class="lead">{{ things|length }} {% if things|length == 1 %}thing{% else %}things{% endif %}</p>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Colour</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for thing in things %}
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Colour</th>
-                            <th scope="col">Actions</th>
+                            <th scope="row"><a href="{{ url_for('thing.view', id=thing.id) }}">{{ thing.name }}</a></th>
+                            <td>{{ thing.colour | title }}</td>
+                            <td>
+                                <a href="{{ url_for('thing.edit', id=thing.id) }}"><i class="bi bi-pencil-square"></i> Edit</a><br>
+                                <a href="{{ url_for('thing.delete', id=thing.id) }}" class="link-danger"><i class="bi bi-trash"></i> Delete</a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for thing in things %}
-                            <tr>
-                                <th scope="row"><a href="{{ url_for('thing.view', id=thing.id) }}">{{ thing.name }}</a></th>
-                                <td>{{ thing.colour | title }}</td>
-                                <td>
-                                    <a href="{{ url_for('thing.edit', id=thing.id) }}"><i class="bi bi-pencil-square"></i> Edit</a><br>
-                                    <a href="{{ url_for('thing.delete', id=thing.id) }}" class="link-danger"><i class="bi bi-trash"></i> Delete</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="lead">0 things</p>
         {% endif %}
     </div>
 </div>
