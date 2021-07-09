@@ -11,6 +11,9 @@ def list():
     form = ThingFilterForm()
 
     filters = {}
+    if request.args.get("sort"):
+        filters["sort"] = request.args.get("sort", type=str)
+        form.sort.data = filters["sort"]
     if request.args.get("name"):
         filters["name"] = request.args.get("name", type=str)
         form.name.data = filters["name"]
