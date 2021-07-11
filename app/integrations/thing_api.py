@@ -42,14 +42,18 @@ class Thing(ThingAPI):
             else:
                 raise InternalServerError
 
-    def list(self, filters):
+    def list(self, filters, format="json"):
         """Get a list of Things."""
         if filters:
             qs = urlencode(filters)
             url = f"{self.url}/{self.version}/things?{qs}"
         else:
             url = f"{self.url}/{self.version}/things"
-        headers = {"Accept": "application/json"}
+        
+        if format == "csv":
+            headers = {"Accept": "text/csv"}
+        else:
+            headers = {"Accept": "application/json"}
 
         try:
             response = requests.get(url, headers=headers, timeout=self.timeout)
@@ -57,7 +61,10 @@ class Thing(ThingAPI):
             raise RequestTimeout
         else:
             if response.status_code == 200:
-                return json.loads(response.text)
+                if format == "csv":
+                    return response.text
+                else:
+                    return json.loads(response.text)
             elif response.status_code == 204:
                 return None
             elif response.status_code == 429:
