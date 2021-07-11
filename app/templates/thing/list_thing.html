@@ -44,7 +44,10 @@
     </div>
     <div class="col-md-9">
         {% if things %}
-        <p class="lead">{{ things|length }} {% if things|length == 1 %}thing{% else %}things{% endif %}</p>
+        <p class="lead">
+            {{ things|length }} {% if things|length == 1 %}thing{% else %}things{% endif %}
+            <a class="btn btn-secondary float-end" href="{{ url_for('thing.download', sort=request.args.get('sort'), name=request.args.get('name'), colour=request.args.get('colour')) }}"><i class="bi bi-download"></i> Download</a>
+        </p>
         <div class="table-responsive">
             <table class="table">
                 <thead>
