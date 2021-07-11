@@ -2,7 +2,7 @@ from app import csrf
 from app.integrations.thing_api import Thing
 from app.thing import bp
 from app.thing.forms import ThingFilterForm, ThingForm
-from flask import flash, redirect, render_template, request, url_for
+from flask import Response, flash, redirect, render_template, request, url_for
 
 
 @bp.route("/", methods=["GET", "POST"])
@@ -95,3 +95,20 @@ def delete(id):
         Thing().delete(id)
         flash(f"{thing['name']} has been deleted.", "success")
         return redirect(url_for("thing.list"))
+
+
+@bp.route("/download", methods=["GET"])
+def download():
+    """Download a list of Things."""
+    filters = {}
+    if request.args.get("sort"):
+        filters["sort"] = request.args.get("sort", type=str)
+    if request.args.get("name"):
+        filters["name"] = request.args.get("name", type=str)
+    if request.args.get("colour"):
+        filters["colour"] = request.args.get("colour", type=str)
+
+    things = Thing().list(filters=filters, format="csv")
+    response = Response(things, mimetype="text/csv", status=200)
+    response.headers.set("Content-Disposition", "attachment", filename="things.csv")
+    return response
