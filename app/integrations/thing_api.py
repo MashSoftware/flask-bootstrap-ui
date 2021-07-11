@@ -49,7 +49,7 @@ class Thing(ThingAPI):
             url = f"{self.url}/{self.version}/things?{qs}"
         else:
             url = f"{self.url}/{self.version}/things"
-        
+
         if format == "csv":
             headers = {"Accept": "text/csv"}
         else:
