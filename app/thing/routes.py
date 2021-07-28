@@ -23,7 +23,7 @@ def list():
 
     things = Thing().list(filters=filters)
 
-    return render_template("list_thing.html", title="Things", things=things, form=form)
+    return render_template("list_things.html", title="Things", things=things, form=form)
 
 
 @bp.route("/new", methods=["GET", "POST"])
