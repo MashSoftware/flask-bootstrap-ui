@@ -11,4 +11,4 @@ class Config(object):
     THING_API_VERSION = os.environ.get("THING_API_VERSION") or "v1"
     POINT_API_URL = os.environ.get("POINT_API_URL") or "http://localhost:3002"
     POINT_API_VERSION = os.environ.get("POINT_API_VERSION") or "v1"
-    TIMEOUT = os.environ.get("TIMEOUT") or 5
+    TIMEOUT = int(os.environ.get("TIMEOUT")) or 5
