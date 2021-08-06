@@ -1,3 +1,4 @@
 FLASK_APP=flask_bootstrap_ui.py
 FLASK_ENV=development
 FLASK_RUN_PORT=5000
+TIMEOUT=5
