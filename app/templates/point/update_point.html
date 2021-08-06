@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('point.list') }}">Points</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('point.view', id=point.id) }}">{{ point.properties.name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            </ol>
+        </nav>
+        {{ super() }}
+        <h1>{{title}}</h1>
+        <hr>
+        {% include '_point_form.html' %}
+    </div>
+</div>
+{% endblock %}

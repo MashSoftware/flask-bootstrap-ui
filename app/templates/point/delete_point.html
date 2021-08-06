@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('point.list') }}">Points</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('point.view', id=point.id) }}">{{ point.properties.name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Delete</li>
+            </ol>
+        </nav>
+        {{ super() }}
+        <h1>{{title}}</h1>
+        <hr>
+        <p class="lead">Are you sure you want to delete {{ point.properties.name }}?</p>
+        {% include '_point_description.html' %}
+        <form action="" method="post" novalidate>
+            <div class="d-grid gap-2 d-sm-block">
+                <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i> Yes, delete {{ point.properties.name }}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

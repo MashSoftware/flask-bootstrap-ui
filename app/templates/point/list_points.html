@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        {{ super() }}
+        <h1>{{title}}</h1>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="d-grid gap-2 mb-3">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('point.create') }}"><i class="bi bi-plus-lg"></i> New point</a>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">Sort and filter</div>
+            <form action="" method="get" novalidate>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        {{ form.sort.label(class="form-label") }}
+                        {{ form.sort(class="form-select mb-2") }}
+                    </li>
+                    <li class="list-group-item">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-control mb-2", type="text") }}
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit"><i class="bi bi-funnel"></i> Apply</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-9">
+        {% if points %}
+        <p class="lead">
+            {{ points.features|length }} {% if points.features|length == 1 %}point{% else %}points{% endif %}
+            <a class="btn btn-secondary float-end" href="{{ url_for('point.download', sort=request.args.get('sort'), name=request.args.get('name')) }}"><i class="bi bi-download"></i> Download</a>
+        </p>
+        <script nonce="{{ csp_nonce() }}">
+            var geojson = {{ points | tojson }};
+        </script>
+        <div id="mapid" class="card"></div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for point in points.features %}
+                        <tr>
+                            <th scope="row"><a href="{{ url_for('point.view', id=point.id) }}">{{ point.properties.name }}</a></th>
+                            <td>
+                                <a href="{{ url_for('point.edit', id=point.id) }}"><i class="bi bi-pencil-square"></i> Edit</a><br>
+                                <a href="{{ url_for('point.delete', id=point.id) }}" class="link-danger"><i class="bi bi-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="lead">0 points</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
