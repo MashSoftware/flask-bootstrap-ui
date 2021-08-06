@@ -32,7 +32,8 @@ def create():
         new_point = Point().create(name=form.name.data, lat=form.latitude.data, lon=form.longitude.data)
         flash(
             "<a href='{}' class='alert-link'>{}</a> has been created.".format(
-                url_for("point.view", id=new_point["id"]), new_point["properties"]["name"]
+                url_for("point.view", id=new_point["id"]),
+                new_point["properties"]["name"],
             ),
             "success",
         )
@@ -56,10 +57,16 @@ def edit(id):
     form = PointForm()
 
     if form.validate_on_submit():
-        changed_point = Point().edit(point_id=id, name=form.name.data, lat=form.latitude.data, lon=form.longitude.data)
+        changed_point = Point().edit(
+            point_id=id,
+            name=form.name.data,
+            lat=form.latitude.data,
+            lon=form.longitude.data,
+        )
         flash(
             "Your changes to <a href='{}' class='alert-link'>{}</a> have been saved.".format(
-                url_for("point.view", id=changed_point["id"]), changed_point["properties"]["name"]
+                url_for("point.view", id=changed_point["id"]),
+                changed_point["properties"]["name"],
             ),
             "success",
         )

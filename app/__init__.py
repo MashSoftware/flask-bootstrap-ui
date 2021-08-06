@@ -31,9 +31,18 @@ def create_app(config_class=Config):
         "style-src": ["https://cdn.jsdelivr.net", "'self'"],
         "script-src": ["https://cdn.jsdelivr.net", "'self'"],
         "font-src": "https://cdn.jsdelivr.net",
-        "img-src": ["https://cdn.jsdelivr.net", "https://*.tile.openstreetmap.org", "data:", "'self'"],
+        "img-src": [
+            "https://cdn.jsdelivr.net",
+            "https://*.tile.openstreetmap.org",
+            "data:",
+            "'self'",
+        ],
     }
-    talisman.init_app(app, content_security_policy=csp, content_security_policy_nonce_in=['script-src'])
+    talisman.init_app(
+        app,
+        content_security_policy=csp,
+        content_security_policy_nonce_in=["script-src"],
+    )
 
     js = Bundle("src/js/*.js", filters="jsmin", output="dist/js/custom-%(version)s.js")
     css = Bundle("src/css/*.css", filters="cssmin", output="dist/css/custom-%(version)s.css")

@@ -4,8 +4,12 @@ from urllib.parse import urlencode
 
 import requests
 from flask import current_app
-from werkzeug.exceptions import (InternalServerError, NotFound, RequestTimeout,
-                                 TooManyRequests)
+from werkzeug.exceptions import (
+    InternalServerError,
+    NotFound,
+    RequestTimeout,
+    TooManyRequests,
+)
 
 
 class PointAPI:
@@ -36,9 +40,13 @@ class Point(PointAPI):
         else:
             if response.status_code == 201:
                 point = json.loads(response.text)
-                point["properties"]["created_at"] = datetime.strptime(point["properties"]["created_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
+                point["properties"]["created_at"] = datetime.strptime(
+                    point["properties"]["created_at"], "%Y-%m-%dT%H:%M:%S.%f%z"
+                )
                 if point["properties"]["updated_at"]:
-                    point["properties"]["updated_at"] = datetime.strptime(point["properties"]["updated_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
+                    point["properties"]["updated_at"] = datetime.strptime(
+                        point["properties"]["updated_at"], "%Y-%m-%dT%H:%M:%S.%f%z"
+                    )
                 return point
             elif response.status_code == 429:
                 raise TooManyRequests
@@ -127,9 +135,13 @@ class Point(PointAPI):
         else:
             if response.status_code == 200:
                 point = json.loads(response.text)
-                point["properties"]["created_at"] = datetime.strptime(point["properties"]["created_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
+                point["properties"]["created_at"] = datetime.strptime(
+                    point["properties"]["created_at"], "%Y-%m-%dT%H:%M:%S.%f%z"
+                )
                 if point["properties"]["updated_at"]:
-                    point["properties"]["updated_at"] = datetime.strptime(point["properties"]["updated_at"], "%Y-%m-%dT%H:%M:%S.%f%z")
+                    point["properties"]["updated_at"] = datetime.strptime(
+                        point["properties"]["updated_at"], "%Y-%m-%dT%H:%M:%S.%f%z"
+                    )
                 return point
             elif response.status_code == 404:
                 raise NotFound
