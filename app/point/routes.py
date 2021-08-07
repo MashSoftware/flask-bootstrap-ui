@@ -29,7 +29,7 @@ def create():
     form = PointForm()
 
     if form.validate_on_submit():
-        new_point = Point().create(name=form.name.data, lat=form.latitude.data, lon=form.longitude.data)
+        new_point = Point().create(name=form.name.data, geometry=form.geometry.data)
         flash(
             "<a href='{}' class='alert-link'>{}</a> has been created.".format(
                 url_for("point.view", id=new_point["id"]),
@@ -57,12 +57,7 @@ def edit(id):
     form = PointForm()
 
     if form.validate_on_submit():
-        changed_point = Point().edit(
-            point_id=id,
-            name=form.name.data,
-            lat=form.latitude.data,
-            lon=form.longitude.data,
-        )
+        changed_point = Point().edit(point_id=id, name=form.name.data, geometry=form.geometry.data)
         flash(
             "Your changes to <a href='{}' class='alert-link'>{}</a> have been saved.".format(
                 url_for("point.view", id=changed_point["id"]),
@@ -73,8 +68,7 @@ def edit(id):
         return redirect(url_for("point.list"))
     elif request.method == "GET":
         form.name.data = point["properties"]["name"]
-        form.latitude.data = point["geometry"]["coordinates"][1]
-        form.longitude.data = point["geometry"]["coordinates"][0]
+        form.geometry.data = point["geometry"]
 
     return render_template(
         "update_point.html",

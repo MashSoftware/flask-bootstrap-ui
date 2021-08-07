@@ -20,7 +20,7 @@ class PointAPI:
 
 
 class Point(PointAPI):
-    def create(self, name, lat, lon):
+    def create(self, name, geometry):
         """Create a new Point."""
         url = f"{self.url}/{self.version}/points"
         headers = {
@@ -30,7 +30,7 @@ class Point(PointAPI):
         new_point = {
             "type": "Feature",
             "properties": {"name": name},
-            "geometry": {"type": "Point", "coordinates": [lon, lat]},
+            "geometry": json.loads(geometry),
         }
 
         try:
@@ -110,7 +110,7 @@ class Point(PointAPI):
             else:
                 raise InternalServerError
 
-    def edit(self, point_id, name, lat, lon):
+    def edit(self, point_id, name, geometry):
         """Edit a Point with a specific ID."""
         url = f"{self.url}/{self.version}/points/{point_id}"
         headers = {
@@ -120,7 +120,7 @@ class Point(PointAPI):
         changed_point = {
             "type": "Feature",
             "properties": {"name": name},
-            "geometry": {"type": "Point", "coordinates": [lon, lat]},
+            "geometry": json.loads(geometry),
         }
 
         try:
