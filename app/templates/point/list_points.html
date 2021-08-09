@@ -39,10 +39,33 @@
             {{ points.features|length }} {% if points.features|length == 1 %}point{% else %}points{% endif %}
             <a class="btn btn-secondary float-end" href="{{ url_for('point.download', sort=request.args.get('sort'), name=request.args.get('name')) }}"><i class="bi bi-download"></i> Download</a>
         </p>
-        <script nonce="{{ csp_nonce() }}">
-            var geojson = {{ points | tojson }};
-        </script>
         <div id="mapid" class="card"></div>
+        <script type="application/javascript" nonce="{{ csp_nonce() }}">
+            // initialize Leaflet
+            var map = L.map("mapid");
+
+            // add the OpenStreetMap tiles
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+            }).addTo(map);
+
+            // add popup to each feature
+            function onEachFeature(feature, layer) {
+                if (feature.properties && feature.properties.name) {
+                    layer.bindPopup(feature.properties.name);
+                }
+            }
+
+            // add the GeoJSON feature layer
+            var geojsonLayer = L.geoJSON({{ points | tojson }}, { onEachFeature: onEachFeature }).addTo(
+            map
+            );
+
+            // zoom map to GeoJSON feature layer
+            map.fitBounds(geojsonLayer.getBounds());
+        </script>
         <div class="table-responsive">
             <table class="table">
                 <thead>

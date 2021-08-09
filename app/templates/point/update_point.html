@@ -13,6 +13,43 @@
         <h1>{{title}}</h1>
         <hr>
         {% include '_point_form.html' %}
+        <script type="application/javascript" nonce="{{ csp_nonce() }}">
+            // initialize Leaflet
+            var map = L.map("mapid");
+
+            // add the OpenStreetMap tiles
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+            }).addTo(map);
+
+            // add popup to each feature
+            function onEachFeature(feature, layer) {
+                if (feature.properties && feature.properties.name) {
+                    layer.bindPopup(feature.properties.name);
+                }
+            }
+
+            // add the GeoJSON feature layer
+            var geojsonLayer = L.geoJSON({{ point | tojson }}, { onEachFeature: onEachFeature }).addTo(map);
+
+            // zoom map to GeoJSON feature layer
+            map.fitBounds(geojsonLayer.getBounds());
+
+            var marker = L.marker();
+
+            function onMapClick(e) {
+            marker
+                .setLatLng(e.latlng)
+                .addTo(map)
+                .bindPopup(e.latlng.lat.toString() + "<br>" + e.latlng.lng.toString())
+                .openPopup();
+            document.getElementById('geometry').value=JSON.stringify(marker.toGeoJSON().geometry)
+            }
+
+            map.on("click", onMapClick);  
+        </script>
     </div>
 </div>
 {% endblock %}

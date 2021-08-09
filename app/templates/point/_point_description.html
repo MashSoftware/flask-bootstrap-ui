@@ -3,9 +3,31 @@
     <dd class="col-sm-9">{{ point.properties.created_at.strftime("%d/%m/%Y %H:%M:%S") }}</dd>
 
     <dt class="col-sm-3">Last updated</dt>
-    <dd class="col-sm-9">{{ point.properties.updated_at.strftime("%d/%m/%Y %H:%M:%S") if point.updated_at else "Never" }}</dd>
+    <dd class="col-sm-9">{{ point.properties.updated_at.strftime("%d/%m/%Y %H:%M:%S") if point.properties.updated_at else "Never" }}</dd>
 </dl>
+<div id="mapid" class="card mb-3"></div>
 <script type="application/javascript" nonce="{{ csp_nonce() }}">
-    var geojson = {{ point | tojson }};
+    // initialize Leaflet
+    var map = L.map("mapid");
+
+    // add the OpenStreetMap tiles
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+        '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+    }).addTo(map);
+
+    // add popup to each feature
+    function onEachFeature(feature, layer) {
+        if (feature.properties && feature.properties.name) {
+            layer.bindPopup(feature.properties.name);
+        }
+    }
+
+    // add the GeoJSON feature layer
+    var geojsonLayer = L.geoJSON({{ point | tojson }}, { onEachFeature: onEachFeature }).addTo(map);
+
+    // zoom map to GeoJSON feature layer
+    map.fitBounds(geojsonLayer.getBounds());
 </script>
-<div id="mapid" class="mb-3"></div>
+<input type="hidden" id="geometry">
