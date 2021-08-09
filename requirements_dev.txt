@@ -14,7 +14,7 @@ black==21.7b0
     # via -r requirements_dev.in
 certifi==2021.5.30
     # via requests
-charset-normalizer==2.0.3
+charset-normalizer==2.0.4
     # via requests
 click==8.0.1
     # via
@@ -82,7 +82,7 @@ pyyaml==5.4.1
     # via
     #   bandit
     #   dparse
-regex==2021.7.6
+regex==2021.8.3
     # via black
 requests==2.26.0
     # via
@@ -106,13 +106,13 @@ toml==0.10.2
     #   dparse
     #   pytest
     #   pytest-cov
-tomli==1.1.0
+tomli==1.2.1
     # via
     #   black
     #   pep517
 urllib3==1.26.6
     # via requests
-wheel==0.36.2
+wheel==0.37.0
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
