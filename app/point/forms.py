@@ -15,7 +15,7 @@ class PointForm(FlaskForm):
     location = HiddenField(
         "Location",
         validators=[InputRequired(message="Select a location")],
-        description="Click on the map to add a location."
+        description="Click on the map to add a location.",
     )
 
 
