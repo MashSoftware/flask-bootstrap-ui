@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, StringField, TextAreaField
+from wtforms import HiddenField, SelectField, StringField
 from wtforms.validators import InputRequired, Length, Optional
 
 
@@ -12,10 +12,10 @@ class PointForm(FlaskForm):
         ],
         description="Must be 32 characters or fewer.",
     )
-    geometry = TextAreaField(
-        "Geometry",
-        validators=[InputRequired(message="Enter a geometry")],
-        description="Must be valid GeoJSON.",
+    location = HiddenField(
+        "Location",
+        validators=[InputRequired(message="Select a location")],
+        description="Click on the map to add a location."
     )
 
 
