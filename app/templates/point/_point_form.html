@@ -16,34 +16,22 @@
         <div id="nameHelp" class="form-text">{{ form.name.description }}</div>
     </div>
     <div class="mb-3">
-        {{ form.latitude.label(class="form-label") }}
+        {{ form.location.label(class="form-label") }}
         {% if form.errors %}
-            {% if form.latitude.errors %}
-                {{ form.latitude(class="form-control is-invalid", type="text", spellcheck="true", aria_describedby="latitudeHelp") }}
-                {% for error in form.latitude.errors %}<div class="invalid-feedback">{{error}}</div>{% endfor %}
+            {% if form.location.errors %}
+                <div id="mapid" class="card border-danger"></div>
+                {{ form.location(class="is-invalid") }}
+                {% for error in form.location.errors %}<div class="invalid-feedback">{{error}}</div>{% endfor %}
             {% else %}
-                {{ form.latitude(class="form-control is-valid", type="text", spellcheck="true", aria_describedby="latitudeHelp") }}
+                <div id="mapid" class="card border-success"></div>
+                {{ form.location(class="is-valid") }}
                 <div class="valid-feedback">Looks good!</div>
             {% endif %}
         {% else %}
-            {{ form.latitude(class="form-control", type="text", spellcheck="true", aria_describedby="latitudeHelp") }}
+            {{ form.location }}
+            <div id="mapid" class="card"></div>
         {% endif %}
-        <div id="latitudeHelp" class="form-text">{{ form.latitude.description }}</div>
-    </div>
-    <div class="mb-3">
-        {{ form.longitude.label(class="form-label") }}
-        {% if form.errors %}
-            {% if form.longitude.errors %}
-                {{ form.longitude(class="form-control is-invalid", type="text", spellcheck="true", aria_describedby="longitudeHelp") }}
-                {% for error in form.longitude.errors %}<div class="invalid-feedback">{{error}}</div>{% endfor %}
-            {% else %}
-                {{ form.longitude(class="form-control is-valid", type="text", spellcheck="true", aria_describedby="longitudeHelp") }}
-                <div class="valid-feedback">Looks good!</div>
-            {% endif %}
-        {% else %}
-            {{ form.longitude(class="form-control", type="text", spellcheck="true", aria_describedby="longitudeHelp") }}
-        {% endif %}
-        <div id="longitudeHelp" class="form-text">{{ form.longitude.description }}</div>
+        <div id="nameHelp" class="form-text">{{ form.location.description }}</div>
     </div>
     <div class="d-grid gap-2 d-sm-block">
         <button class="btn btn-primary" type="submit"><i class="bi bi-save"></i> Save</button>
