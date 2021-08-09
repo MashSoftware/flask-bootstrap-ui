@@ -1,3 +1,5 @@
+import json
+
 from app import csrf
 from app.integrations.point_api import Point
 from app.point import bp
@@ -29,7 +31,7 @@ def create():
     form = PointForm()
 
     if form.validate_on_submit():
-        new_point = Point().create(name=form.name.data, geometry=form.geometry.data)
+        new_point = Point().create(name=form.name.data, geometry=form.location.data)
         flash(
             "<a href='{}' class='alert-link'>{}</a> has been created.".format(
                 url_for("point.view", id=new_point["id"]),
@@ -57,7 +59,7 @@ def edit(id):
     form = PointForm()
 
     if form.validate_on_submit():
-        changed_point = Point().edit(point_id=id, name=form.name.data, geometry=form.geometry.data)
+        changed_point = Point().edit(point_id=id, name=form.name.data, geometry=form.location.data)
         flash(
             "Your changes to <a href='{}' class='alert-link'>{}</a> have been saved.".format(
                 url_for("point.view", id=changed_point["id"]),
@@ -68,7 +70,7 @@ def edit(id):
         return redirect(url_for("point.list"))
     elif request.method == "GET":
         form.name.data = point["properties"]["name"]
-        form.geometry.data = point["geometry"]
+        form.location.data = json.dumps(point["geometry"])
 
     return render_template(
         "update_point.html",
