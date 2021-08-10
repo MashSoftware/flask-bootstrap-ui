@@ -14,27 +14,34 @@
         {% include '_point_form.html' %}
         <script type="application/javascript" nonce="{{ csp_nonce() }}">
             // initialize Leaflet
-            var map = L.map("mapid").setView([0, 0], 1);
+            var map = L.map("mapid");
 
             // add the OpenStreetMap tiles
             L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            attribution:
-                '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+                maxZoom: 19,
+                attribution:
+                    '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
             }).addTo(map);
+
+            //set map view to users geolocation
+            map.locate({ setView: true, maxZoom: 16 });
 
             var marker = L.marker();
 
             function onMapClick(e) {
-            marker
-                .setLatLng(e.latlng)
-                .addTo(map)
-                .bindPopup("Lon: " + e.latlng.lng.toString() + "<br>Lat: " + e.latlng.lat.toString())
-                .openPopup();
-            document.getElementById('location').value=JSON.stringify(marker.toGeoJSON().geometry)
+                marker
+                    .setLatLng(e.latlng)
+                    .addTo(map)
+                    .bindPopup(
+                    "Lon: " + e.latlng.lng.toString() + "<br>Lat: " + e.latlng.lat.toString()
+                    )
+                    .openPopup();
+                document.getElementById("location").value = JSON.stringify(
+                    marker.toGeoJSON().geometry
+                );
             }
 
-            map.on("click", onMapClick); 
+            map.on("click", onMapClick);
         </script>
     </div>
 </div>
