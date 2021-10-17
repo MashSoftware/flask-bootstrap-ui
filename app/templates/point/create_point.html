@@ -26,14 +26,14 @@
             //set map view to users geolocation
             map.locate({ setView: true, maxZoom: 16 });
 
-            var marker = L.marker();
+            var marker = L.marker({draggable: 'true'});
 
             function onMapClick(e) {
                 marker
                     .setLatLng(e.latlng)
                     .addTo(map)
                     .bindPopup(
-                    "Lon: " + e.latlng.lng.toString() + "<br>Lat: " + e.latlng.lat.toString()
+                    "Lon: " + e.latlng.lng.toFixed(6) + "<br>Lat: " + e.latlng.lat.toFixed(6)
                     )
                     .openPopup();
                 document.getElementById("location").value = JSON.stringify(

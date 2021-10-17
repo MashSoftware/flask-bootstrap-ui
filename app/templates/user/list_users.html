@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        {{ super() }}
+        <h1>{{title}}</h1>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="d-grid gap-2 mb-3">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('user.create') }}"><i class="bi bi-plus-lg"></i> New user</a>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">Sort and filter</div>
+            <form action="" method="get" novalidate>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        {{ form.email_address.label(class="form-label") }}
+                        {{ form.email_address(class="form-control mb-2", type="text") }}
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit"><i class="bi bi-funnel"></i> Apply</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-9">
+        {% if users %}
+        <p class="lead">
+            {{ users|length }} {% if users|length == 1 %}user{% else %}users{% endif %}
+        </p>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Email address</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <th scope="row"><a href="{{ url_for('user.view', id=user.id) }}">{{ user.email_address }}</a></th>
+                            <td>
+                                <a href="{{ url_for('user.edit', id=user.id) }}"><i class="bi bi-pencil-square"></i> Edit</a><br>
+                                <a href="{{ url_for('user.delete', id=user.id) }}" class="link-danger"><i class="bi bi-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="lead">0 users</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

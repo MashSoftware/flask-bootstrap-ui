@@ -24,12 +24,15 @@ flask==2.0.1
     #   flask-assets
     #   flask-compress
     #   flask-limiter
+    #   flask-login
     #   flask-wtf
 flask-assets==2.0
     # via -r requirements.in
 flask-compress==1.10.1
     # via -r requirements.in
 flask-limiter==1.4
+    # via -r requirements.in
+flask-login==0.5.0
     # via -r requirements.in
 flask-talisman==0.8.1
     # via -r requirements.in

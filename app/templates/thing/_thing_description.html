@@ -2,6 +2,9 @@
     <dt class="col-sm-3">Colour</dt>
     <dd class="col-sm-9">{{ thing.colour | title }}</dd>
 
+    <dt class="col-sm-3">Owner</dt>
+    <dd class="col-sm-9">{{ thing.user_id }}</dd>
+
     <dt class="col-sm-3">Created</dt>
     <dd class="col-sm-9">{{ thing.created_at.strftime("%d/%m/%Y %H:%M:%S") }}</dd>
 

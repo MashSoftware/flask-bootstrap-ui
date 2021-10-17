@@ -21,7 +21,10 @@ def list():
         filters["colour"] = request.args.get("colour", type=str)
         form.colour.data = filters["colour"]
 
-    things = Thing().list(filters=filters)
+    things = Thing().list(
+        token=request.cookies.get("token"),
+        filters=filters,
+    )
 
     return render_template("list_things.html", title="Things", things=things, form=form)
 
@@ -47,7 +50,10 @@ def create():
 @bp.route("/<uuid:id>", methods=["GET"])
 def view(id):
     """Get a Thing with a specific ID."""
-    thing = Thing().get(id)
+    thing = Thing().get(
+        token=request.cookies.get("token"),
+        thing_id=id,
+    )
 
     return render_template("view_thing.html", title=thing["name"], thing=thing)
 
@@ -55,7 +61,10 @@ def view(id):
 @bp.route("/<uuid:id>/edit", methods=["GET", "POST"])
 def edit(id):
     """Edit a Thing with a specific ID."""
-    thing = Thing().get(id)
+    thing = Thing().get(
+        token=request.cookies.get("token"),
+        thing_id=id,
+    )
     form = ThingForm()
 
     if form.validate_on_submit():
@@ -83,7 +92,10 @@ def edit(id):
 @csrf.exempt
 def delete(id):
     """Delete a Thing with a specific ID."""
-    thing = Thing().get(id)
+    thing = Thing().get(
+        token=request.cookies.get("token"),
+        thing_id=id,
+    )
 
     if request.method == "GET":
         return render_template(
@@ -108,7 +120,11 @@ def download():
     if request.args.get("colour"):
         filters["colour"] = request.args.get("colour", type=str)
 
-    things = Thing().list(filters=filters, format="csv")
+    things = Thing().list(
+        token=request.cookies.get("token"),
+        filters=filters,
+        format="csv",
+    )
     response = Response(things, mimetype="text/csv", status=200)
     response.headers.set("Content-Disposition", "attachment", filename="things.csv")
     return response

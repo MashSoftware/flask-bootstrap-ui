@@ -26,9 +26,7 @@
 
             // add popup to each feature
             function onEachFeature(feature, layer) {
-                if (feature.properties && feature.properties.name) {
-                    layer.bindPopup(feature.properties.name);
-                }
+                layer.bindPopup("Lon: " + feature.latlng.lng.toFixed(6) + "<br>Lat: " + feature.latlng.lat.toFixed(6));
             }
 
             // add the GeoJSON feature layer
@@ -43,7 +41,7 @@
             marker
                 .setLatLng(e.latlng)
                 .addTo(map)
-                .bindPopup(e.latlng.lat.toString() + "<br>" + e.latlng.lng.toString())
+                .bindPopup("Lon: " + e.latlng.lng.toFixed(6) + "<br>Lat: " + e.latlng.lat.toFixed(6))
                 .openPopup();
             document.getElementById('geometry').value=JSON.stringify(marker.toGeoJSON().geometry)
             }

@@ -1,0 +1,51 @@
+<form action="" method="post" novalidate>
+    {{ form.csrf_token }}
+    <div class="mb-3">
+        {{ form.email_address.label(class="form-label") }}
+        {% if form.errors %}
+            {% if form.email_address.errors %}
+                {{ form.email_address(class="form-control is-invalid", spellcheck="true", aria_describedby="email_addressHelp") }}
+                {% for error in form.email_address.errors %}<div class="invalid-feedback">{{error}}</div>{% endfor %}
+            {% else %}
+                {{ form.email_address(class="form-control is-valid", spellcheck="true", aria_describedby="email_addressHelp") }}
+                <div class="valid-feedback">Looks good!</div>
+            {% endif %}
+        {% else %}
+            {{ form.email_address(class="form-control", spellcheck="true", aria_describedby="email_addressHelp") }}
+        {% endif %}
+        <div id="email_addressHelp" class="form-text">{{ form.email_address.description }}</div>
+    </div>
+    <div class="mb-3">
+        {{ form.password.label(class="form-label") }}
+        {% if form.errors %}
+            {% if form.password.errors %}
+                {{ form.password(class="form-control is-invalid", spellcheck="true", aria_describedby="passwordHelp") }}
+                {% for error in form.password.errors %}<div class="invalid-feedback">{{error}}</div>{% endfor %}
+            {% else %}
+                {{ form.password(class="form-control is-valid", spellcheck="true", aria_describedby="passwordHelp") }}
+                <div class="valid-feedback">Looks good!</div>
+            {% endif %}
+        {% else %}
+            {{ form.password(class="form-control", spellcheck="true", aria_describedby="passwordHelp") }}
+        {% endif %}
+        <div id="passwordHelp" class="form-text">{{ form.password.description }}</div>
+    </div>
+    <div class="mb-3">
+        {{ form.confirm_password.label(class="form-label") }}
+        {% if form.errors %}
+            {% if form.confirm_password.errors %}
+                {{ form.confirm_password(class="form-control is-invalid", spellcheck="true", aria_describedby="confirm_passwordHelp") }}
+                {% for error in form.confirm_password.errors %}<div class="invalid-feedback">{{error}}</div>{% endfor %}
+            {% else %}
+                {{ form.confirm_password(class="form-control is-valid", spellcheck="true", aria_describedby="confirm_passwordHelp") }}
+                <div class="valid-feedback">Looks good!</div>
+            {% endif %}
+        {% else %}
+            {{ form.confirm_password(class="form-control", spellcheck="true", aria_describedby="confirm_passwordHelp") }}
+        {% endif %}
+        <div id="confirm_passwordHelp" class="form-text">{{ form.confirm_password.description }}</div>
+    </div>
+    <div class="d-grid gap-2 d-sm-block">
+        <button class="btn btn-primary" type="submit"><i class="bi bi-save"></i> Save</button>
+    </div>
+</form>
