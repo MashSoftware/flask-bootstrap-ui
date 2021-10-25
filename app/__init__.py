@@ -1,6 +1,5 @@
 import logging
 
-from config import Config
 from flask import Flask
 from flask_assets import Bundle, Environment
 from flask_compress import Compress
@@ -8,6 +7,8 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
+
+from config import Config
 
 csrf = CSRFProtect()
 limiter = Limiter(key_func=get_remote_address, default_limits=["2 per second", "60 per minute"])
@@ -52,11 +53,11 @@ def create_app(config_class=Config):
         assets.register("css", css)
 
     # Register blueprints
-    from app.main import bp as main_bp
-    from app.thing import bp as thing_bp
-    from app.point import bp as point_bp
     from app.line import bp as line_bp
+    from app.main import bp as main_bp
+    from app.point import bp as point_bp
     from app.polygon import bp as polygon_bp
+    from app.thing import bp as thing_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(thing_bp, url_prefix="/things")

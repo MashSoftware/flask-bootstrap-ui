@@ -1,16 +1,9 @@
-from app.main import bp
-from app.main.forms import CookiesForm
-from flask import (
-    current_app,
-    flash,
-    json,
-    make_response,
-    redirect,
-    render_template,
-    request,
-)
+from flask import current_app, flash, json, make_response, redirect, render_template, request
 from flask_wtf.csrf import CSRFError
 from werkzeug.exceptions import HTTPException
+
+from app.main import bp
+from app.main.forms import CookiesForm
 
 
 @bp.route("/", methods=["GET"])

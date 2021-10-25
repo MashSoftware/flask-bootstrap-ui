@@ -1,8 +1,9 @@
+from flask import Response, flash, redirect, render_template, request, url_for
+
 from app import csrf
 from app.integrations.thing_api import Thing
 from app.thing import bp
 from app.thing.forms import ThingFilterForm, ThingForm
-from flask import Response, flash, redirect, render_template, request, url_for
 
 
 @bp.route("/", methods=["GET", "POST"])

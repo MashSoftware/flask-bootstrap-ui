@@ -4,12 +4,7 @@ from urllib.parse import urlencode
 
 import requests
 from flask import current_app
-from werkzeug.exceptions import (
-    InternalServerError,
-    NotFound,
-    RequestTimeout,
-    TooManyRequests,
-)
+from werkzeug.exceptions import InternalServerError, NotFound, RequestTimeout, TooManyRequests
 
 
 class PointAPI:

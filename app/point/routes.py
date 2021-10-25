@@ -1,10 +1,11 @@
 import json
 
+from flask import Response, flash, redirect, render_template, request, url_for
+
 from app import csrf
 from app.integrations.point_api import Point
 from app.point import bp
 from app.point.forms import PointFilterForm, PointForm
-from flask import Response, flash, redirect, render_template, request, url_for
 
 
 @bp.route("/", methods=["GET", "POST"])
