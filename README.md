@@ -38,7 +38,7 @@ python -m pytest --cov=app --cov-report=term-missing --cov-branch
 
 ## Features
 
-This template app uses a number of packages to provide the following features with sensible defaults. Please referr to the specific packages documentation for more details.
+This template app uses a number of packages to provide the following features with sensible defaults. Please refer to the specific packages documentation for more details.
 
 ### Asset compression
 
