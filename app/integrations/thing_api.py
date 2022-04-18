@@ -10,14 +10,13 @@ from werkzeug.exceptions import InternalServerError, NotFound, RequestTimeout, T
 class ThingAPI:
     def __init__(self):
         self.url = current_app.config["THING_API_URL"]
-        self.version = current_app.config["THING_API_VERSION"]
         self.timeout = current_app.config["TIMEOUT"]
 
 
 class Thing(ThingAPI):
     def create(self, name, colour):
         """Create a new Thing."""
-        url = f"{self.url}/{self.version}/things"
+        url = f"{self.url}/things"
         headers = {"Accept": "application/json", "Content-Type": "application/json"}
         new_thing = {"name": name, "colour": colour}
 
@@ -41,9 +40,9 @@ class Thing(ThingAPI):
         """Get a list of Things."""
         if filters:
             qs = urlencode(filters)
-            url = f"{self.url}/{self.version}/things?{qs}"
+            url = f"{self.url}/things?{qs}"
         else:
-            url = f"{self.url}/{self.version}/things"
+            url = f"{self.url}/things"
 
         if format == "csv":
             headers = {"Accept": "text/csv"}
@@ -69,7 +68,7 @@ class Thing(ThingAPI):
 
     def get(self, thing_id):
         """Get a Thing with a specific ID."""
-        url = f"{self.url}/{self.version}/things/{thing_id}"
+        url = f"{self.url}/things/{thing_id}"
         headers = {"Accept": "application/json"}
 
         try:
@@ -92,7 +91,7 @@ class Thing(ThingAPI):
 
     def edit(self, thing_id, name, colour):
         """Edit a Thing with a specific ID."""
-        url = f"{self.url}/{self.version}/things/{thing_id}"
+        url = f"{self.url}/things/{thing_id}"
         headers = {"Accept": "application/json", "Content-Type": "application/json"}
         changed_thing = {"name": name, "colour": colour}
 
@@ -121,7 +120,7 @@ class Thing(ThingAPI):
 
     def delete(self, thing_id):
         """Delete a Thing with a specific ID."""
-        url = f"{self.url}/{self.version}/things/{thing_id}"
+        url = f"{self.url}/things/{thing_id}"
         headers = {"Accept": "application/json"}
 
         try:

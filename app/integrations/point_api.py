@@ -10,14 +10,13 @@ from werkzeug.exceptions import InternalServerError, NotFound, RequestTimeout, T
 class PointAPI:
     def __init__(self):
         self.url = current_app.config["POINT_API_URL"]
-        self.version = current_app.config["POINT_API_VERSION"]
         self.timeout = current_app.config["TIMEOUT"]
 
 
 class Point(PointAPI):
     def create(self, name, geometry):
         """Create a new Point."""
-        url = f"{self.url}/{self.version}/points"
+        url = f"{self.url}/points"
         headers = {
             "Accept": "application/geo+json",
             "Content-Type": "application/geo+json",
@@ -52,9 +51,9 @@ class Point(PointAPI):
         """Get a list of Points."""
         if filters:
             qs = urlencode(filters)
-            url = f"{self.url}/{self.version}/points?{qs}"
+            url = f"{self.url}/points?{qs}"
         else:
-            url = f"{self.url}/{self.version}/points"
+            url = f"{self.url}/points"
 
         if format == "csv":
             headers = {"Accept": "text/csv"}
@@ -80,7 +79,7 @@ class Point(PointAPI):
 
     def get(self, point_id):
         """Get a Point with a specific ID."""
-        url = f"{self.url}/{self.version}/points/{point_id}"
+        url = f"{self.url}/points/{point_id}"
         headers = {"Accept": "application/geo+json"}
 
         try:
@@ -107,7 +106,7 @@ class Point(PointAPI):
 
     def edit(self, point_id, name, geometry):
         """Edit a Point with a specific ID."""
-        url = f"{self.url}/{self.version}/points/{point_id}"
+        url = f"{self.url}/points/{point_id}"
         headers = {
             "Accept": "application/geo+json",
             "Content-Type": "application/geo+json",
@@ -147,7 +146,7 @@ class Point(PointAPI):
 
     def delete(self, point_id):
         """Delete a Point with a specific ID."""
-        url = f"{self.url}/{self.version}/points/{point_id}"
+        url = f"{self.url}/points/{point_id}"
         headers = {"Accept": "application/geo+json"}
 
         try:
