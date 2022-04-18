@@ -1,11 +1,13 @@
-bandit==1.7.2
-black==22.1.0
-flake8-bugbear==22.1.11
+bandit==1.7.2  # Latest 1.7.4
+black==22.1.0  # Latest 22.3.0
+flake8-bugbear==22.1.11  # Latest 22.3.23
 hacking==4.1.0
 isort==5.10.1
 pep8-naming<0.12.0
-pip-tools==6.4.0
+pip-tools==6.4.0  # Latest 6.6.0
 piprot==0.9.11
 pytest-cov==3.0.0
-pytest==6.2.5
+pytest==6.2.5  # Latest 7.1.1
 safety==1.10.3
+# Generated with piprot 0.9.10
+# Your requirements are 538 days out of date
