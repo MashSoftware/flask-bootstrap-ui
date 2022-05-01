@@ -26,8 +26,8 @@ def create_app(config_class=Config):
     # Set content security policy
     csp = {
         "default-src": "'self'",
-        "style-src": ["https://cdn.jsdelivr.net", "'self'"],
-        "script-src": ["https://cdn.jsdelivr.net", "'self'"],
+        "style-src": ["https://cdn.jsdelivr.net", "https://unpkg.com", "'self'"],
+        "script-src": ["https://cdn.jsdelivr.net", "https://unpkg.com", "'self'"],
         "font-src": "https://cdn.jsdelivr.net",
         "img-src": [
             "https://cdn.jsdelivr.net",
