@@ -8,4 +8,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
-- Flask UI app based on best practices and my personal learning and experience gained on previous projects.
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.1.0](https://github.com/MashSoftware/flask-bootstrap-ui/releases/tag/0.1.0) - 2022-05-31
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
