@@ -6,7 +6,7 @@ This template repository contains a [Flask](https://flask.palletsprojects.com) a
 
 ### Required
 
-- Python 3.6.x or higher
+- Python 3.7.x or higher
 
 ### Optional
 
