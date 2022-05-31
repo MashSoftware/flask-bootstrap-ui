@@ -15,7 +15,16 @@ class ThingForm(FlaskForm):
     colour = RadioField(
         "Colour",
         validators=[InputRequired(message="Select a colour")],
-        choices=[("red", "Red"), ("green", "Green"), ("blue", "Blue")],
+        choices=[
+            ("red", "Red"),
+            ("green", "Green"),
+            ("blue", "Blue"),
+            ("yellow", "Yellow"),
+            ("orange", "Orange"),
+            ("purple", "Purple"),
+            ("black", "Black"),
+            ("white", "White"),
+        ],
     )
 
 
@@ -30,6 +39,15 @@ class ThingFilterForm(FlaskForm):
     colour = RadioField(
         "Colour",
         validators=[Optional()],
-        choices=[("", "All"), ("red", "Red"), ("green", "Green"), ("blue", "Blue")],
+        choices=[
+            ("red", "Red"),
+            ("green", "Green"),
+            ("blue", "Blue"),
+            ("yellow", "Yellow"),
+            ("orange", "Orange"),
+            ("purple", "Purple"),
+            ("black", "Black"),
+            ("white", "White"),
+        ],
         default="",
     )
