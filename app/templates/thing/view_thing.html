@@ -12,7 +12,7 @@
         <h1 class="text-truncate">{{ title }}</h1>
         <hr>
         {% include '_thing_description.html' %}
-        <div class="d-grid gap-2 d-sm-block">
+        <div class="d-grid gap-3 d-sm-block">
             <a class="btn btn-primary" href="{{ url_for('thing.edit', id=thing.id) }}"><i class="bi bi-pencil-square"></i> Edit</a>
             <a class="btn btn-danger" href="{{ url_for('thing.delete', id=thing.id) }}"><i class="bi bi-trash"></i> Delete</a>
         </div>
